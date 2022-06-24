@@ -1,0 +1,101 @@
+version: '3.7'
+
+volumes:
+    prometheus_data: {}
+    grafana_data: {}
+    db_volume:
+
+networks:
+  front-tier:
+  back-tier:
+
+services:
+    
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus
+    volumes:
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus/targets.json:/etc/prometheus/targets.json
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+    ports:
+      - "9090:9090"
+    networks:
+      - back-tier
+    restart: always
+
+  grafana:
+    container_name: grafana_856
+    image: grafana/grafana:8.5.6
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./config/grafana/grafana_datasources.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
+      - ./config/grafana/grafana_dashboards.yaml:/etc/grafana/provisioning/dashboards/dashboards.yaml
+      - ./config/grafana/grafana.ini:/etc/grafana/grafana.ini
+      - ./config/grafana/dashboards:/opt/grafana/dashboards
+      - grafana_data:/var/lib/grafana
+    networks:
+      - back-tier
+      - front-tier
+    restart: always
+    
+  s3:
+    container_name: s3_storage
+    image:  minio/minio:RELEASE.2022-06-20T23-13-45Z
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=minioadmin
+      - MINIO_ROOT_PASSWORD=minioadmin
+    command: server /data --console-address ":9001"
+    networks:
+      - back-tier
+      - front-tier
+    volumes:
+      - "D:/minio_data:/data"
+  db:
+    image: mysql/mysql-server:5.7.28
+    restart: always
+    container_name: mlflow_db
+    expose:
+      - "3306"
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_DATABASE=mlflow
+      - MYSQL_USER=mlflow_user
+      - MYSQL_PASSWORD=mlflow_user
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - db_volume:/var/lib/mysql
+    networks:
+      - back-tier
+      - front-tier
+      
+  mlflow:
+    container_name: mlflow_tracker
+    image: tracker_ml
+    restart: unless-stopped
+    build:
+      context: ./mlops_docker/dockerfiles/mlflow
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - AWS_ACCESS_KEY_ID=minioadmin
+      - AWS_SECRET_ACCESS_KEY=minioadmin
+      - AWS_DEFAULT_REGION=""
+      - MLFLOW_S3_ENDPOINT_URL=http://s3:9000
+    networks:
+      - back-tier
+      - front-tier
+    entrypoint: mlflow server --backend-store-uri mysql+pymysql://mlflow_user:mlflow_user@db:3306/mlflow --default-artifact-root s3://mlflow/ -h 0.0.0.0 -p 5001
+      

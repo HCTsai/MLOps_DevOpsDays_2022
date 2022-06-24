@@ -1,0 +1,15 @@
+artifact_uri: http://127.0.0.1:9000/mlflow/99098a3c1dff4b948ea275b21b13298f/artifacts
+end_time: 1655692108151
+entry_point_name: ''
+experiment_id: '2'
+lifecycle_stage: active
+name: ''
+run_id: 99098a3c1dff4b948ea275b21b13298f
+run_uuid: 99098a3c1dff4b948ea275b21b13298f
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1655692107772
+status: 3
+tags: []
+user_id: hsiaochien.tsai
