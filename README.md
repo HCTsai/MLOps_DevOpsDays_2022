@@ -1,23 +1,24 @@
 # MLOps  
-* 輸入任意文件，自動產生 SWOT分析報告
-* 輸入任意文件，自動產生 PEST分析報告
+* 保障與監控AI產品的商業價值
+* 使AI產品開發成本降低，工作效率提升。
+* 線上服務可管理監控，模型品質不佳可監控，可重新訓練。
 
----
-### MLOps 活動
-* MLOps 架構
+* MLOps 活動
 * <img src="web/static/img/archtecture01.png" width="800">
 
 ### 系統架構
 * <img src="web/static/img/archtecture02.png" width="800">
 
+* 水平整合：商業價值統計，AI使用量，線上資料品質，線上預測品質，模型品質紀錄，模型開發環境紀錄，模型實驗參數紀錄，ML Pipeline程式碼紀錄。
+* 垂直整合：AI服務監控，AI模型品質監控，容器環境監控，網路可用性監控，硬體計算資源監控
 ---
 ### 實際範例
 
 ### AI 自動產生 S.W.O.T 分析報告
 * 輸入：任意文件 --> 輸出：S.W.O.T 分析
-* <img src="web/static/img/banner02.png" width="800">
+* <img src="web/static/img/swot_web_demo_01.png" width="800">
 
-* 後台監控畫面
+* 模型服務後台監控畫面
 * <img src="web/static/img/dashboard01.png" width="800">
 * <img src="web/static/img/dashboard02.png" width="800">
 
