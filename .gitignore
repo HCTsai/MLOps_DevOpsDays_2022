@@ -100,4 +100,5 @@ output/*
 src/monitoring/grafana_monitoring_service/datasets/
 mlruns/
 mlflow.db
+data/all_label_features_idx.csv
 
