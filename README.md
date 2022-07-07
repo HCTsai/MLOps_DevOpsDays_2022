@@ -5,21 +5,21 @@
 ---
 ### MLOps 活動
 * MLOps 架構
-* ![Pipeline](web/static/img/archtecture01.png =x800)
+* <img src="web/static/img/archtecture01.png" width="800">
 
 ### 系統架構
-* ![Arhitecture](web/static/img/archtecture02.png =x800)
+* <img src="web/static/img/archtecture02.png" width="800">
 
 ---
 ### 實際範例
 
 ### AI 自動產生 S.W.O.T 分析報告
 * 輸入：任意文件 --> 輸出：S.W.O.T 分析
-* ![SWOT分析](web/static/img/banner02.png =x250)
+* <img src="web/static/img/banner02.png" width="800">
 
 * 後台監控畫面
-* ![後台監控畫面](web/static/img/dashboard01.png =x800)
-* ![後台監控畫面](web/static/img/dashboard02.png =x800)
+* <img src="web/static/img/dashboard01.png" width="800">
+* <img src="web/static/img/dashboard02.png" width="800">
 
 
 ---
