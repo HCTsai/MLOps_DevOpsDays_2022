@@ -97,8 +97,7 @@ uploaded_files/*
 !uploaded_files/.gitignore
 output/*
 !output/.gitignore
-classifier/mlruns/
 src/monitoring/grafana_monitoring_service/datasets/
-data/
-src/train/mlruns
-src/web/mlruns
+mlruns/
+mlflow.db
+

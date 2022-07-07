@@ -1,0 +1,4 @@
+D,支配型 (Dominance)
+I,影響型 (Influence)
+S,穩健型 (Steadiness)
+C,分析型 (Conscientiousness)

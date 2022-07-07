@@ -1,4 +1,0 @@
-artifact_location: http://127.0.0.1:9000/mlflow
-experiment_id: '2'
-lifecycle_stage: active
-name: new_experiment111

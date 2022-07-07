@@ -1,0 +1,4 @@
+P,政治 (Political)
+E,經濟 (Economic)
+S,社會 (Social)
+T,科技 (Technological)

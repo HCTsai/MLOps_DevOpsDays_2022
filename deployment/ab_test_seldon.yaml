@@ -1,0 +1,24 @@
+---
+apiVersion: machinelearning.seldon.io/v1alpha2
+kind: SeldonDeployment
+metadata:
+  name: mlflow-deployment
+spec:
+  name: mlflow-deployment
+  predictors:
+    - graph:
+        children: []
+        implementation: MLFLOW_SERVER
+        modelUri: "s3://mlflow/mlruns/63903915456a4ba4b437ca708a03b8bd/artifacts/model"
+        name: swot-classifier
+      name: a-mlflow-deployment-dag
+      replicas: 1
+      traffic: 80
+    - graph:
+        children: []
+        implementation: MLFLOW_SERVER
+        modelUri: "s3://mlflow/mlruns/0556ab67e0e74f7e90ac57f84b8ff641/artifacts/model"
+        name: swot-classifier
+      name: b-mlflow-deployment-dag
+      replicas: 1
+      traffic: 20

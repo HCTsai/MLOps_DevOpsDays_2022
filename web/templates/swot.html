@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='UTF-8'>
+    <title>AI 自動 S.W.O.T 分析</title>
+    <script src='static/js/vue.js'></script>
+    <script src="static/js/axios.min.js"></script>
+	<link rel="stylesheet" href="static/css/bootstrap.css"> <!--宣告 CSS-->
+	<script src="static/js/bootstrap.bundle.min.js"></script> <!--宣告 JS-->
+	<script src="static/js/vue-loading-overlay3.js"></script>
+ 	 <link href="static/css/vue-loading3.css" rel="stylesheet">
+	
+    <style>
+    .button {
+      background: #009fff;
+      color: #fff;
+      padding: 10px 20px;
+      display: inline-block;
+      border-radius: 3px;
+      box-shadow: 0px 0px 5px #aaa;
+      font-family: arial;
+    }
+    .dd-container {
+                width: 1280px;
+                height: 150px;
+                border: 2px dotted gray
+            }
+    .dd-container h4 {
+        text-align: center;
+        font-family: sans-serif;
+    }
+    .table-bordered {
+	     border-radius: 100px;
+	}
+    </style>
+  </head>
+  <body>
+  	  
+	   <!-- Navi Bar-->
+	  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+	    
+	    	<div class="container mt-3">
+	     		<h2> AI 自動 S.W.O.T 分析 </h2>
+	     	</div>
+	  </nav>
+	  <!--貼上測試範例 end-->
+	<div>
+		<br>
+		<img src=static/img/logo01.jpg class="rounded mx-auto d-block"> </img>
+		<br>
+	</div>  
+	<div id='app' class="container mt-3 ">
+		
+	    	 	
+		  <div class="container">
+			    <div class="large-12 medium-12 small-12 cell">
+			      <label>
+			        <input class="form-control " type="file" id="file" ref="file" v-on:change="handleFileUpload()"/>
+			      </label>
+			      <button class="btn btn-primary" v-on:click="submitFile()">分析</button>
+			    </div>
+	     </div>
+	   
+	     <loading :active.sync="LoaderVisiable" :can-cancel="true"></loading>
+	     <div class="container" >
+			 <div class="dd-container" v-cloak @drop.prevent="addFile" @dragover.prevent>
+				<h4> 將 txt, pptx, docx, pdf 檔案拉到此處 (Drag and Drop here) </h4>
+				<div>{{ message }} </div>
+        		
+		     </div>
+	 	</div>
+	 	<div class="container">
+	 	 	<div class="large-12 medium-12 small-12 cell">
+			 	<form class="form-inline" method="post" @submit.prevent="textPost">
+					 <input class="form-control" type="text" name="" value="" v-model="inputText">
+					 <button class="btn btn-primary" type="submit" name="button">分析</button>
+				</form>
+			</div>
+		</div>
+
+	 	
+		
+	  	<div class="container mt-3">
+		 
+		<p>分析結果</p>            
+		  
+		</div>
+		
+		<table class="table ">
+		    <tbody>
+		    	<tr>
+			        <th class="table-info">優勢 (Strengths):{{typeScore.S}}</th>
+			        <th class="table-warning">劣勢 (Weaknesses):{{typeScore.W}}</th>
+		      	</tr>
+		        <tr>
+		        	<td class="table-info">
+		        		<ul>
+		        			<li v-for="item in resultFilterS"  >{{item.text}} ({{item.score}})</li>
+		        		</ul>
+		        	</td>
+		        	<td class="table-warning">
+		        		<ul>
+		        			<li v-for="item in resultFilterW"  >{{item.text}} ({{item.score}})</li>
+		        		</ul>
+		        	</td>
+		        </tr>
+		    </tbody>
+		   
+		    <tbody>
+		      <tr>
+		        <th class="table-success">機會 (Opportunities):{{typeScore.O}}</th>
+		        <th class="table-danger">威脅 (Threats):{{typeScore.T}}</th>
+		      </tr>
+		        <tr>
+		        	
+		        	<td class="table-success">
+		        		<ul>
+		        			<li v-for="item in resultFilterO"  >{{item.text}} ({{item.score}})</li>
+		        		</ul>
+		        	</td>
+		        	
+		        	<td class="table-danger">
+		        		<ul>
+		        			<li v-for="item in resultFilterT"  >{{item.text}} ({{item.score}})</li>
+		        		</ul>
+		        	</td>
+		        </tr>
+		        
+		    </tbody>
+		</table>
+		<button class="btn btn-primary" @click="downloadFile()">下載報告</button>
+		
+	</div>
+	
+	
+	<!-- End app -->
+	
+	
+  <script>
+  Vue.use(VueLoading);	
+  var app = new Vue({
+    el: '#app',
+    //delimiters: ['[[',']]'],
+    data: {
+      message: '',
+      formData: new FormData(),
+      uploadfile:'',
+      barValue: '10%',
+      tableData : [],
+      LoaderVisiable: false	,
+      strategy:'SWOT',	
+      inputText:'',
+      typeScore:{}
+    },
+    components: {
+        loading: VueLoading
+    },
+    computed: {
+    	
+        resultFilterS() {
+      	  return this.tableData.filter(item => item.label === 'S' );
+      	 },
+      	resultFilterW() {
+          return this.tableData.filter(item => item.label === 'W' );
+         	 },
+         resultFilterO() {
+           return this.tableData.filter(item => item.label === 'O' );
+        },
+        resultFilterT() {
+           return this.tableData.filter(item => item.label === 'T' );
+        },
+        
+      },
+    methods: {
+      addFile(e) {
+    	  let loader = this.$loading.show({
+              loader: 'dots'
+          });
+          this.uploadfile = e.dataTransfer.files[0];
+          console.log(this.uploadfile.name)
+          this.message = this.uploadfile.name
+          const formData = new FormData();
+          formData.append('strategy', this.strategy);
+          formData.append('files', this.uploadfile);
+          
+          axios.post('/uploads', formData)
+          .then( (response) => {
+        	  //this.message = response.data
+        	 
+        	  //alert(response.data.table.keys())
+        	  this.tableData = response.data.table
+        	  this.typeScore = response.data.score
+        	  console.log(this.tableData[0].text)
+        	  loader.hide();
+    		})
+    			
+      },
+      	handleFileUpload(){
+          this.uploadfile = this.$refs.file.files[0];
+        },
+        submitFile(){
+	        	 let loader = this.$loading.show({
+	                 loader: 'dots'
+	             });
+                let formData = new FormData();
+                formData.append('strategy', this.strategy);	
+                formData.append('files', this.uploadfile);
+                axios.post( '/uploads',
+                    formData,
+                    {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                  }
+                ).then((response) => {
+	              	  this.tableData = response.data.table
+	              	  this.typeScore = response.data.score
+	              	  console.log(this.tableData[0].text)
+	              	  loader.hide();
+          		})
+            .catch(function(){
+              console.log('FAILURE!!');
+            });
+          },
+          textPost(){
+        	  let loader = this.$loading.show({
+              		loader: 'dots'
+          	  });
+        	  const formData = new FormData();
+	          formData.append('strategy', this.strategy);
+	          formData.append('text', this.inputText);
+	          
+	          axios.post('/uploads', formData)
+	          .then( (response) => {
+	        	  this.tableData = response.data.table
+	        	  this.typeScore = response.data.score
+	        	  loader.hide();
+	    	  })
+	     },
+	     downloadFile() {
+             axios({
+                   url: '/static/file/swot_result.pptx', // File URL Goes Here
+                   method: 'GET',
+                   responseType: 'blob',
+               }).then((res) => {
+                    var FILE = window.URL.createObjectURL(new Blob([res.data]));
+                    var docUrl = document.createElement('a');
+                    docUrl.href = FILE;
+                    docUrl.setAttribute('download', 'swot_result.pptx');
+                    document.body.appendChild(docUrl);
+                    docUrl.click();
+               });
+         }
+        
+      
+    }
+    
+    
+  })
+  </script>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+S,優勢 (Strengths)
+W,劣勢 (Weaknesses)
+O,機會 (Opportunities)
+T,威脅 (Threats)

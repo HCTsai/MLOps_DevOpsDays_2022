@@ -1,4 +1,0 @@
-artifact_location: http://127.0.0.1:9000
-experiment_id: '1'
-lifecycle_stage: active
-name: new_experiment
