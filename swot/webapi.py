@@ -28,7 +28,7 @@ def process_upload(request):
         strategy_type = request.form["strategy"]
     
     query_text = ""    
-    if "text" in request.form :
+    if "text" in request.form and  len(request.form["text"]) > 1 :
         query_text = request.form["text"]
         # print (request.form["text"])
         strategy_dict = semantic.text_to_label(query_text, strategy_type, top_k=5,semantic_correction=False, demo_mode=True) 

@@ -26,7 +26,7 @@ import os
 # print(torch.cuda.is_available())
 
 #初始化編碼器，第一次使用時，會自動到hugginface網站下載模型 
-from train import model_inference
+from model_manager import model_inference
 
 xgb_swot = model_inference.model_xgb
 #os.environ['TRANSFORMERS_CACHE'] = '/blabla/cache/'

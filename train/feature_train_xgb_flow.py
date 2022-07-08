@@ -21,7 +21,7 @@ from nlp import language
 import os 
 from mlflow.store import artifact
 from config import global_config
-from model_manager import mode_registry
+from model_manager import model_registry
 
 # enable autologging
 # mlflow.sklearn.autolog()
@@ -73,7 +73,7 @@ def run_experiment(exp_name, tracking_url, artifact_location, tracking_type):
             print ("model fit, run:{}".format(i))
             print("artifact_uri:{}".format(mlflow.get_artifact_uri()))  # should print out an s3 bucket path
            
-            model_xgb = XGBClassifier(learning_rate = 0.05, n_estimators=p, max_depth=5, min_child_weight=1,
+            model_xgb = XGBClassifier(learning_rate = 0.05, n_estimators=p, max_depth=4, min_child_weight=1,
                 gamma=0, subsample=0.8, colsample_bytree=0.8,
                 objective= 'multi:softmax', nthread=4, seed=27, eval_metric='mlogloss')
             #model fit
@@ -96,7 +96,7 @@ def run_experiment(exp_name, tracking_url, artifact_location, tracking_type):
     best_run_id = ""
     model_metrics = 0 
     try :
-        best_run_id, model_metrics = mode_registry.save_best_model_by_expid(exp_name, exp_run_ids, model_name, tracking_type, tracking_url)
+        best_run_id, model_metrics = model_registry.save_best_model_by_expid(exp_name, exp_run_ids, model_name, tracking_type, tracking_url)
     except Exception as e: 
         print('Failed to save_best_model: '+ str(e))
     return exp_run_ids, best_run_id, model_metrics
@@ -116,5 +116,5 @@ if __name__ == '__main__' :
         artifact_location = global_config.artifact_location
     
     exp_name = global_config.exp_name_offline
-    mode_registry.get_best_performance(exp_name, tracking_uri)
+    model_registry.get_best_performance(exp_name, tracking_uri)
     run_experiment(exp_name, tracking_uri, artifact_location, mlflow_tracking_type)
