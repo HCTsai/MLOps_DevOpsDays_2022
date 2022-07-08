@@ -21,7 +21,7 @@ from nlp import language
 import os 
 from mlflow.store import artifact
 from config import global_config
-
+from model_manager import mode_registry
 
 # enable autologging
 # mlflow.sklearn.autolog()
@@ -46,70 +46,7 @@ def get_data():
     print(y_train.shape)
 
     return X_train, X_test, y_train,  y_test
-# functions
-def print_auto_logged_info(r):
-    from mlflow.tracking import MlflowClient
-    tags = {k: v for k, v in r.data.tags.items() if not k.startswith("mlflow.")}
-    artifacts = [f.path for f in MlflowClient().list_artifacts(r.info.run_id, "model")]
-    print("run_id: {}".format(r.info.run_id))
-    print("artifacts: {}".format(artifacts))
-    print("params: {}".format(r.data.params))
-    print("metrics: {}".format(r.data.metrics))
-    print("tags: {}".format(tags))
-    
-def get_best_performance(exp_name, tracking_url):
-    mlflow.set_tracking_uri(tracking_url)
-    exp = mlflow.get_experiment_by_name(exp_name)
-    if not exp :
-        return 0
-    client = mlflow.tracking.MlflowClient()
-    runs = client.search_runs(exp.experiment_id, "",run_view_type=ViewType.ACTIVE_ONLY, order_by=["metrics.val_f1_score DESC"], max_results=1)
-    p = 0
-    if len(runs) > 0 :
-        p = runs[0].data.metrics["val_f1_score"]
-        print ("預期 F-score:{}".format(runs[0].data.metrics["val_f1_score"]))
-    return p
-def reload_model_by_uri(model_uri):
-    
-    model = mlflow.xgboost.load_model(model_uri)
-    model_xgb = model
-    print ("reload xgb model from:{}".format(model_uri))
-    return model_xgb
 
-def get_best_model_runs(exp_name, tracking_url):
-    mlflow.set_tracking_uri(tracking_url)
-    exp = mlflow.get_experiment_by_name(exp_name)
-    #print(exp)
-    client = mlflow.tracking.MlflowClient()
-    runs = client.search_runs(exp.experiment_id, "",run_view_type=ViewType.ACTIVE_ONLY, order_by=["metrics.val_f1_score DESC"], max_results=20)
-    return runs
-def save_best_model(exp_name, exp_ids, model_name, tracking_type, tracking_url):
-    #取得 同一個實驗 較好的
-    runs = get_best_model_runs(exp_name, tracking_url)
-    # 註冊模型，只記錄每次實驗，多個run 裡面指標表現最好的模型
-    for run in runs:
-        run_id = run.info.run_id
-        if (run_id in exp_ids) :
-            model_uri = "runs:/"+run_id+"/model"
-            reg_result = mlflow.register_model(model_uri, model_name)
-            print(".register model name:{} version:{}".format(reg_result.name, reg_result.version))
-            break 
-    #save current_best model 紀錄歷史實驗裡面，指標最好的模型
-    print ("best model:{}".format("runs:/" + runs[0].info.run_id + "/model"))
-    
-    if tracking_type == 1 :
-        model_uri = "s3://mlflow/mlruns/{}/artifacts/model".format(runs[0].info.run_id)
-        model = reload_model_by_uri(model_uri)
-        model_path = global_config.best_model_path 
-        model.save_model(model_path)
-        
-    else :
-        model = mlflow.xgboost.load_model("runs:/" + runs[0].info.run_id + "/model")
-        model_path = "../data/model/xgb_swot_model_best.json"
-        model.save_model(model_path)
-    
-    
-    return runs[0].info.run_id, runs[0].data.metrics["val_f1_score"]
 
 def run_experiment(exp_name, tracking_url, artifact_location, tracking_type):
     # 設定 MLflow 參數
@@ -125,8 +62,7 @@ def run_experiment(exp_name, tracking_url, artifact_location, tracking_type):
     mlflow.set_experiment(exp_name)
     # autolog 可設定各種紀錄參數
     mlflow.xgboost.autolog()
-    model_name = "swot_ai_xgb"
-    
+    model_name = global_config.exp_model_name
     #
     X_train, X_test, y_train, y_test = get_data()
     #設定模型參數
@@ -160,7 +96,7 @@ def run_experiment(exp_name, tracking_url, artifact_location, tracking_type):
     best_run_id = ""
     model_metrics = 0 
     try :
-        best_run_id, model_metrics = save_best_model(exp_name, exp_run_ids, model_name, tracking_type, tracking_url)
+        best_run_id, model_metrics = mode_registry.save_best_model_by_expid(exp_name, exp_run_ids, model_name, tracking_type, tracking_url)
     except Exception as e: 
         print('Failed to save_best_model: '+ str(e))
     return exp_run_ids, best_run_id, model_metrics
@@ -180,5 +116,5 @@ if __name__ == '__main__' :
         artifact_location = global_config.artifact_location
     
     exp_name = global_config.exp_name_offline
-    get_best_performance(exp_name, tracking_uri)
+    mode_registry.get_best_performance(exp_name, tracking_uri)
     run_experiment(exp_name, tracking_uri, artifact_location, mlflow_tracking_type)

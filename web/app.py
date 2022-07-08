@@ -20,11 +20,12 @@ from flask import Response
 from train import continuous_traning
 import time
 from threading import Thread
-from train import model_inference
+from model_manager import model_inference
 from train import feature_train_xgb_flow
 from swot import webapi
 from config import global_config
 from monitoring import model_monitor
+from model_manager import model_registry
 
 os.environ["PROMETHEUS_DISABLE_CREATED_SERIES"] = "True"
 # logging.basicConfig(filename='log/app.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
@@ -50,13 +51,12 @@ model_retrain_time_total = Gauge("swot_model_retrain_time_total","ACC of the mod
 uncertain_predict_counter = Counter("swot_model_uncertain_total","uncertain label of the model")
 #
 exp_name = global_config.exp_name_online
+
 tracking_uri = global_config.local_tracking_uri
 if (global_config.mlflow_tracking_type == "1"):
     tracking_uri = global_config.tracking_uri
-model_metrics.set(feature_train_xgb_flow.get_best_performance(exp_name, tracking_uri))
-
-
-
+# 模型的performance 預設值使用線下實驗結果
+model_metrics.set(model_registry.get_best_performance(global_config.exp_name_offline, tracking_uri))
 
 def retrain_model_thread(exp_name):
     st = time.time()

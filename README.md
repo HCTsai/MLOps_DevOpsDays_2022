@@ -14,11 +14,11 @@
 ---
 ### 實際範例
 
-### AI 自動產生 S.W.O.T 分析報告
+### 前端畫面
 * 輸入：任意文件 --> 輸出：S.W.O.T 分析
 * <img src="web/static/img/swot_web_demo_01.png" width="800">
 
-* 模型服務後台監控畫面
+### 後台監控畫面
 * <img src="web/static/img/dashboard01.png" width="800">
 * <img src="web/static/img/dashboard02.png" width="800">
 
