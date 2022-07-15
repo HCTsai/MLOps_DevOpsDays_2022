@@ -1,0 +1,240 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 16,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 23,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "forceImageRefresh": false,
+        "imageUrl": "https://dtmvamahs40ux.cloudfront.net/gl-academy/course/course-683-AIFL.jpg",
+        "lockSensors": false,
+        "mappings": [],
+        "sensors": [],
+        "sensorsTextSize": 10
+      },
+      "pluginVersion": "1.0.7",
+      "title": "Panel Title",
+      "type": "pierosavi-imageit-panel"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 25,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 5,
+      "options": {
+        "forceImageRefresh": false,
+        "imageUrl": "https://venturebeat.com/wp-content/uploads/2022/02/GettyImages-1289682338.jpg",
+        "lockSensors": false,
+        "mappings": [],
+        "sensors": [],
+        "sensorsTextSize": 10
+      },
+      "pluginVersion": "1.0.7",
+      "title": "Panel Title",
+      "type": "pierosavi-imageit-panel"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 0,
+        "y": 48
+      },
+      "id": 3,
+      "options": {
+        "forceImageRefresh": false,
+        "imageUrl": "https://gyanvitaranamcareer.com/uploads/banners/1620742526-Machine-Learning-1.jpg",
+        "lockSensors": false,
+        "mappings": [],
+        "sensors": [],
+        "sensorsTextSize": 10
+      },
+      "pluginVersion": "1.0.7",
+      "title": "Panel Title",
+      "type": "pierosavi-imageit-panel"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 12,
+        "y": 48
+      },
+      "id": 4,
+      "options": {
+        "forceImageRefresh": false,
+        "imageUrl": "https://techcrunch.com/wp-content/uploads/2016/11/gettyimages-496800562.jpg",
+        "lockSensors": false,
+        "mappings": [],
+        "sensors": [],
+        "sensorsTextSize": 10
+      },
+      "pluginVersion": "1.0.7",
+      "title": "Panel Title",
+      "type": "pierosavi-imageit-panel"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 0,
+        "y": 63
+      },
+      "id": 7,
+      "options": {
+        "forceImageRefresh": false,
+        "imageUrl": "https://scyfer.nl/wp-content/uploads/2021/09/Artificial-Intelligence-AI-Robotics-1280x720-1.jpg",
+        "lockSensors": false,
+        "mappings": [],
+        "sensors": [],
+        "sensorsTextSize": 10
+      },
+      "pluginVersion": "1.0.7",
+      "title": "Panel Title",
+      "type": "pierosavi-imageit-panel"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 12,
+        "y": 63
+      },
+      "id": 8,
+      "options": {
+        "forceImageRefresh": false,
+        "imageUrl": "https://www.iqsdirectory.com/resources/wp-content/uploads/2017/10/image5-1.jpg",
+        "lockSensors": false,
+        "mappings": [],
+        "sensors": [],
+        "sensorsTextSize": 10
+      },
+      "pluginVersion": "1.0.7",
+      "title": "Panel Title",
+      "type": "pierosavi-imageit-panel"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 0,
+        "y": 78
+      },
+      "id": 9,
+      "options": {
+        "forceImageRefresh": false,
+        "imageUrl": "https://www.automate.org/images/ogImages/RIA-blog-Industrial-Robotics-AI-Machine-Learning.jpeg",
+        "lockSensors": false,
+        "mappings": [],
+        "sensors": [],
+        "sensorsTextSize": 10
+      },
+      "pluginVersion": "1.0.7",
+      "title": "Panel Title",
+      "type": "pierosavi-imageit-panel"
+    },
+    {
+      "datasource": {
+        "type": "datasource",
+        "uid": "grafana"
+      },
+      "gridPos": {
+        "h": 15,
+        "w": 12,
+        "x": 12,
+        "y": 78
+      },
+      "id": 6,
+      "options": {
+        "forceImageRefresh": false,
+        "imageUrl": "https://www.springboard.com/blog/wp-content/uploads/2022/01/is-machine-learning-hard-a-guide-to-getting-started-scaled-1.jpeg",
+        "lockSensors": false,
+        "mappings": [],
+        "sensors": [],
+        "sensorsTextSize": 10
+      },
+      "pluginVersion": "1.0.7",
+      "title": "Panel Title",
+      "type": "pierosavi-imageit-panel"
+    }
+  ],
+  "schemaVersion": 36,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "AI_ML_dashboard",
+  "uid": "acnAulenk",
+  "version": 2,
+  "weekStart": ""
+}

@@ -27,7 +27,7 @@ def traning(exp_name):
     
     if exp_name == "" or exp_name == "None" :
         exp_name = "swot_ai_ct"
-    exp_run_ids, best_run_id, model_metrics = feature_train_xgb_flow.run_experiment(exp_name, tracking_uri, artifact_location)
+    exp_run_ids, best_run_id, model_metrics = feature_train_xgb_flow.run_experiment(exp_name, tracking_uri, artifact_location, mlflow_tracking_type)
     return exp_run_ids, best_run_id, model_metrics
 
 if __name__ == '__main__' :

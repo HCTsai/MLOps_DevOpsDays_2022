@@ -42,6 +42,7 @@ app.config['JSON_AS_ASCII'] = False # 讓網頁顯示 JSON中文
 # Prometheus Exporter
 metrics = PrometheusMetrics(app, path=None)
 
+
 # metrics for service
 predict_counter = Counter("swot_predict_total","number of swot predict")
 feature_drift_counter = Counter("swot_feature_drift","number of feature drift")
@@ -93,6 +94,8 @@ def retrain(name):
     multi_thread = True
     if name != "" or name is not None:
         exp_name = name
+    else:
+        exp_name = global_config.exp_name_online
     res = {}
     res["exp_name"] = exp_name
     try:

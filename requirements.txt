@@ -157,7 +157,6 @@ s3transfer==0.6.0
 scikit-learn==1.1.1
 scipy==1.8.1
 setproctitle==1.2.3
-#six==1.16.0 
 six==1.15.0
 smart-open==6.0.0
 smmap==5.0.0
@@ -183,7 +182,7 @@ tokenizers==0.12.1
 torch==1.11.0
 tqdm==4.64.0
 transformers==4.19.4
-typing_extensions==3.7.4
+typing_extensions==4.3.0
 unicodecsv==0.14.1
 urllib3==1.26.9
 waitress==2.1.2

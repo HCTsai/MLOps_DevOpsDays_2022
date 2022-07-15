@@ -53,14 +53,14 @@ def run_experiment(exp_name, tracking_url, artifact_location, tracking_type):
     # 須注意，同一個實驗，指定設定了 artifact_location 就無法修改
     # mlflow.create_experiment(exp_name, artifact_location)
     # mlflow.create_experiment(exp_name)
+    mlflow.set_tracking_uri(tracking_url)
     exp = mlflow.get_experiment_by_name(exp_name)
     # new  experiment , exp 產生時就要決定好 artifact_location
     if not exp :
         mlflow.create_experiment(exp_name, artifact_location)
-    
-    mlflow.set_tracking_uri(tracking_url)
+        print("create {}-{}".format(exp_name, artifact_location))
     mlflow.set_experiment(exp_name)
-    # autolog 可設定各種紀錄參數
+    # autolog 可設定各種紀錄參數model fit
     mlflow.xgboost.autolog()
     model_name = global_config.exp_model_name
     #
