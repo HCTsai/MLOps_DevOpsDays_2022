@@ -1,30 +1,22 @@
 # MLOps  
 
-* 保障與監控AI產品的商業價值
-* 使AI產品開發成本降低，工作效率提升。
-* 線上服務可管理監控，模型品質不佳可監控，可重新訓練。
-* 實驗過程自動記錄，資料版本管理，模型版本管理。
+使用了一個NLP，文本分類專案為例，建構基礎的MLOps管理流程。
+達成以下效果：
+
+* 即時監控AI產品的線上商業價值 (Continuous monitoring)
+* 即時監控模型輸入資料品質，即時監控模型預測品質。(Feature drift, Label drift)
+* 即時監控AI模型品質，可依照需求，線上或線下重新訓練模型。(Continuous training)
+* 模型生命週期管理：AI實驗過程自動記錄參數與指標，管理模型性能指標。(Model life cycle management)
+* 訓練資料版本管理，Pipeline 版本管理，模型版本管理。
+* 標註資料推薦，將Feature drift，的資料，以及預測不確定的資料，推薦給管理者優先標註。
 
 
+###安裝 MLOps 基礎服務:
+
+MLOps 基礎服務 (MLflow + MySQL + MinIO + Prometheus + Grafana) :
+整體系統架構如下：
 
 
-
-### MLOps 活動介紹
-
-<img src="web/static/img/archtecture01.png" width="800">
-
-
-
-* 水平整合：商業價值統計，AI使用量，線上資料品質，線上預測品質，模型品質紀錄，模型開發環境紀錄，模型實驗參數紀錄，ML Pipeline程式碼紀錄。
-* 垂直整合：AI服務監控，AI模型品質監控，容器環境監控，網路可用性監控，硬體計算資源監控
-
-
-
-
-###如何安裝 MLOps 服務:
-
-建立 MLOps 基礎服務 (MLflow + MySQL + MinIO + Prometheus + Grafana) :
-整體架構如下：
 <img src="web/static/img/archtecture02.png" width="800">
 
 
@@ -42,11 +34,11 @@
 
 docker-compose 的設定文件在 .env，可以改各系統的預設帳號/密碼/Port等設定。
 
-###安裝 AI Service :
+###安裝 AI Service (Optional):
 #####Run on docker container:
 
 	docker build -t swot_ai:v1 -f "./mlops_docker/dockerfiles/ai_app_service/Dockerfile" .
-	docker run --name swot_ai_service -p 5000:5000
+	docker run --name swot_ai_service -p 5000:5000　swot_ai:v1
 
 #####Run on physical machine :
 
@@ -54,12 +46,19 @@ docker-compose 的設定文件在 .env，可以改各系統的預設帳號/密�
 	cd web
 	python app.py
 	
-	瀏覽器開啟： your_ip:5000
+第一次啟動服務，會自動下載語言模型： hfl/chinese-roberta-wwm-ext，需等待下載完成才可使用服務。
+瀏覽器開啟： your_ip:5000
 
+
+
+
+###系統畫面展示:
+
+####AI服務： 
  <img src="web/static/img/swot_web_demo_01.png" width="800">
-
-
-####後台監控畫面 (Grafana) 
+ 
+ 
+####AI模型，線上監控畫面(Grafana)： 
 預設存取位置: your_ip:3000
 預設帳號密碼: admin/admin
 
@@ -67,7 +66,8 @@ docker-compose 的設定文件在 .env，可以改各系統的預設帳號/密�
 <img src="web/static/img/dashboard02.png" width="800">
 
 
-####模型訓練實驗，自動記錄參數，指標，自動產生模型版本控制　(MLflow) 
+####AI模型，生命週期管理：
+模型訓練實驗，自動記錄參數，指標，自動產生模型版本控制　(MLflow) 
 模型訓練程式碼：
 * train/feature_train_xgb_flow.py
 
@@ -77,10 +77,22 @@ docker-compose 的設定文件在 .env，可以改各系統的預設帳號/密�
 
 <img src="web/static/img/model_version.PNG" width="800">
 
-####模型儲存倉庫　(MinIO)
+####AI模型，儲存管理：　(MinIO)
 不同版本的模型，可設定儲存在　Amazon S3 或是　MinIO:
 
  <img src="web/static/img/minio_model.PNG" width="800">
+
+
+
+### MLOps 活動介紹
+
+<img src="web/static/img/archtecture01.png" width="800">
+
+
+
+* 水平整合：商業價值統計，AI使用量，線上資料品質，線上預測品質，模型品質紀錄，模型開發環境紀錄，模型實驗參數紀錄，ML Pipeline程式碼紀錄。
+* 垂直整合：AI服務監控，AI模型品質監控，容器環境監控，網路可用性監控，硬體計算資源監控
+
 
 ####其他注意事項
 

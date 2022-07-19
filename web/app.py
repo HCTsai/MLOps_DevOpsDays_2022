@@ -21,7 +21,6 @@ from train import continuous_traning
 import time
 from threading import Thread
 from model_manager import model_inference
-from train import feature_train_xgb_flow
 from swot import webapi
 from config import global_config
 from monitoring import model_monitor
@@ -61,7 +60,7 @@ model_metrics.set(model_registry.get_best_performance(global_config.exp_name_off
 
 def retrain_model_thread(exp_name):
     st = time.time()
-    exp_run_ids, best_run_id, perf = continuous_traning.traning(exp_name)
+    exp_run_ids, best_run_id, perf = continuous_traning.run_pipeline(exp_name)
     et = time.time()
     #update real-time metrics
     model_retrain_counter.inc()
@@ -103,7 +102,7 @@ def retrain(name):
             t = Thread(target=retrain_model_thread, args=(exp_name,))
             t.start()
         else:
-            exp_run_ids, best_run_id, f1 = continuous_traning.traning(exp_name)
+            exp_run_ids, best_run_id, f1 = continuous_traning.run_pipeline(exp_name)
             res["exp_run_ids"] = exp_run_ids
             res["best_run_id"] = best_run_id
             res["f1"] = f1
