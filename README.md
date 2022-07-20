@@ -65,6 +65,8 @@ docker-compose 的設定文件在 .env，可以改各系統的預設帳號/密�
 <img src="web/static/img/dashboard01.png" width="800">
 <img src="web/static/img/dashboard02.png" width="800">
 
+監控儀表板預設位置 your_ip:3000 
+Grafana 儀表板 template 可參考 config/grafana/ai_service_default_dashboard.json
 
 ####AI模型，生命週期管理：
 模型訓練實驗，自動記錄參數，指標，自動產生模型版本控制　(MLflow) 

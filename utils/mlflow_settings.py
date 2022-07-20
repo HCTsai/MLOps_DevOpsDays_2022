@@ -23,18 +23,3 @@ if mlflow_tracking_type == 1 : #  MySQL + MinIO
     os.environ["AWS_DEFAULT_REGION"] = global_config.AWS_DEFAULT_REGION
     tracking_uri = global_config.tracking_uri 
     artifact_location = global_config.artifact_location
-
-mlflow.set_tracking_uri(tracking_uri)
-exp_model_name = global_config.exp_model_name
-exp_name = ""
-# 判斷是否產生新的 實驗ID 與 實驗artifact_location
-def set_exp_name(e_name):
-    global exp_name
-    exp = mlflow.get_experiment_by_name(e_name)
-    if not exp :
-        mlflow.create_experiment(e_name, artifact_location)
-        print("create {} on {}".format(e_name, artifact_location))
-    mlflow.set_experiment(e_name)
-    exp_name = e_name
-
-
