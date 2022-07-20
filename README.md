@@ -10,6 +10,7 @@
 * 訓練資料版本管理，Pipeline 版本管理，模型版本管理。(Versioning)
 * 標註資料推薦，將Feature drift，的資料，以及預測不確定的資料，推薦給管理者優先標註。 (Data labelling recommendations)
 
+---
 
 ### 安裝 MLOps 基礎服務:
 
@@ -34,6 +35,8 @@ MLOps 基礎服務 (MLflow + MySQL + MinIO + Prometheus + Grafana) :
 
 docker-compose 的設定文件在 .env，可以改各系統的預設帳號/密碼/Port等設定。
 
+---
+
 ### 安裝 AI Service (Optional, 可自行替換其他的AI服務):
 ##### Run on docker container:
 
@@ -53,19 +56,22 @@ docker-compose 的設定文件在 .env，可以改各系統的預設帳號/密�
 ### 系統畫面展示:
 
 #### AI服務： 
- <kbd><img src="web/static/img/swot_web_demo_01.png" width="800"></kbd>
+ <kbd><img src="web/static/img/swot_web_demo_01.png" width="800" style="border-radius:4%" ></kbd>
  
  
 #### AI模型，線上監控畫面(Grafana)： 
 預設存取位置: your_ip:3000
 預設帳號密碼: admin/admin
 
-<kbd><img src="web/static/img/dashboard01.png" width="800"></kbd>
-<kbd><img src="web/static/img/dashboard02.png" width="800"></kbd>
+<kbd><img src="web/static/img/dashboard01.png" width="800" style="border-radius:4%" ></kbd>
+<br>
+<kbd><img src="web/static/img/dashboard02.png" width="800" style="border-radius:4%" ></kbd>
 
 監控儀表板預設位置 your_ip:3000 
 Grafana 儀表板設定 template 可參考 config/grafana/ai_service_default_dashboard.json
 
+
+---
 
 #### AI模型，生命週期管理：
 模型訓練實驗，自動記錄參數，指標，自動產生模型版本控制　(MLflow) 
@@ -74,28 +80,32 @@ Grafana 儀表板設定 template 可參考 config/grafana/ai_service_default_das
 
 執行程式碼後，在MLflow中，儲存模型紀錄，與模型版本：
 
-<kbd><img src="web/static/img/exp_runs.PNG" width="800" style="border-radius:3%"></kbd>
+<kbd><img src="web/static/img/exp_runs.PNG" width="800" style="border-radius:4%"></kbd>
 
 執行程式碼後，在MLflow中，註冊模型與版本號：
 
-<kbd><img src="web/static/img/model_version.PNG" width="800" style="border-radius:3%"></kbd>
+<kbd><img src="web/static/img/model_version.PNG" width="800" style="border-radius:4%"></kbd>
+
+---
 
 #### AI模型，儲存管理：　(MinIO)
 不同版本的模型，可設定儲存在　Amazon S3 或是　MinIO:
 
- <kbd><img src="web/static/img/minio_model.PNG" width="800"></kbd>
+ <kbd><img src="web/static/img/minio_model.PNG" width="800" style="border-radius:4%" ></kbd>
 
 
+---
 
 ### MLOps 活動介紹
 
-<img src="web/static/img/archtecture01.png" width="800">
+ <kbd><img src="web/static/img/archtecture01.png" width="800" style="border-radius:4%" ></kbd>
 
 
 
 * 水平整合：商業價值統計，AI使用量，線上資料品質，線上預測品質，模型品質紀錄，模型開發環境紀錄，模型實驗參數紀錄，ML Pipeline程式碼紀錄。
 * 垂直整合：AI服務監控，AI模型品質監控，容器環境監控，網路可用性監控，硬體計算資源監控
 
+---
 
 #### 常見問題
 
