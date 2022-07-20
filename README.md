@@ -3,12 +3,12 @@
 使用了一個NLP，文本分類專案為例，建構基礎的MLOps管理流程。
 達成以下效果：
 
-* 即時監控AI產品的線上商業價值 (Continuous monitoring)
-* 即時監控AI模型品質，可依照需求，線上或線下重新訓練模型。(Continuous training)
-* 即時監控模型輸入資料品質，即時監控模型預測品質。(Feature drift, Label drift)
-* 模型生命週期管理：AI實驗過程自動記錄參數與指標，管理模型性能指標。(AI Model life cycle management)
-* 訓練資料版本管理，Pipeline 版本管理，模型版本管理。(Versioning)
-* 標註資料推薦，將Feature drift，的資料，以及預測不確定的資料，推薦給管理者優先標註。 (Data labelling recommendations)
+* 🎁即時監控AI產品的線上商業價值 (Continuous monitoring)
+* 🎁即時監控AI模型品質，可依照需求，線上或線下重新訓練模型。(Continuous training)
+* 🎁即時監控模型輸入資料品質，即時監控模型預測品質。(Feature drift, Label drift)
+* 🎁模型生命週期管理：AI實驗過程自動記錄參數與指標，管理模型性能指標。(AI model life cycle management)
+* 🎁訓練資料版本管理，Pipeline 版本管理，模型版本管理。(Versioning)
+* 🎁標註資料推薦，將Feature drift，的資料，以及預測不確定的資料，推薦給管理者優先標註。 (Data labelling recommendations)
 
 ---
 
