@@ -17,7 +17,7 @@ MLOps 基礎服務 (MLflow + MySQL + MinIO + Prometheus + Grafana) :
 整體系統架構如下：
 
 
-<img src="web/static/img/archtecture02.png" width="800">
+<kbd><img src="web/static/img/archtecture02.png" width="800"></kbd>
 
 
 
@@ -55,34 +55,37 @@ docker-compose 的設定文件在 .env，可以改各系統的預設帳號/密�
 ###系統畫面展示:
 
 ####AI服務： 
- <img src="web/static/img/swot_web_demo_01.png" width="800">
+ <kbd><img src="web/static/img/swot_web_demo_01.png" width="800"></kbd>
  
  
 ####AI模型，線上監控畫面(Grafana)： 
 預設存取位置: your_ip:3000
 預設帳號密碼: admin/admin
 
-<img src="web/static/img/dashboard01.png" width="800">
-<img src="web/static/img/dashboard02.png" width="800">
+<kbd><img src="web/static/img/dashboard01.png" width="800"></kbd>
+<kbd><img src="web/static/img/dashboard02.png" width="800"></kbd>
 
 監控儀表板預設位置 your_ip:3000 
 Grafana 儀表板 template 可參考 config/grafana/ai_service_default_dashboard.json
+
 
 ####AI模型，生命週期管理：
 模型訓練實驗，自動記錄參數，指標，自動產生模型版本控制　(MLflow) 
 模型訓練程式碼：
 * train/feature_train_xgb_flow.py
 
-執行程式碼後，除了產生模型，也在MLflow中，儲存模型紀錄，與模型版本
+執行程式碼後，在MLflow中，儲存模型紀錄，與模型版本：
 
-<img src="web/static/img/exp_runs.PNG" width="800">
+<kbd><img src="web/static/img/exp_runs.PNG" width="800" style="border-radius:3%"></kbd>
 
-<img src="web/static/img/model_version.PNG" width="800">
+執行程式碼後，在MLflow中，註冊模型與版本號：
+
+<kbd><img src="web/static/img/model_version.PNG" width="800" style="border-radius:3%"></kbd>
 
 ####AI模型，儲存管理：　(MinIO)
 不同版本的模型，可設定儲存在　Amazon S3 或是　MinIO:
 
- <img src="web/static/img/minio_model.PNG" width="800">
+ <kbd><img src="web/static/img/minio_model.PNG" width="800"></kbd>
 
 
 
