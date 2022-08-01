@@ -88,7 +88,7 @@ services:
       context: ./mlops_docker/dockerfiles/mlflow
       dockerfile: Dockerfile
     ports:
-      - ${mlflow_port}:5001
+      - ${mlflow_port}:2656
     environment:
       - AWS_ACCESS_KEY_ID=${MINIO_ROOT_USER}
       - AWS_SECRET_ACCESS_KEY=${MINIO_ROOT_PASSWORD}
@@ -97,4 +97,4 @@ services:
     networks:
       - back-tier
       - front-tier
-    entrypoint: mlflow server --backend-store-uri mysql+pymysql://mlflow_user:mlflow_user@db:3306/mlflow --default-artifact-root ${ARTIFACT_ROOT} -h 0.0.0.0 -p ${mlflow_port}
+    entrypoint: mlflow server --backend-store-uri mysql+pymysql://mlflow_user:mlflow_user@db:3306/mlflow --default-artifact-root ${ARTIFACT_ROOT} -h 0.0.0.0 -p 2656
