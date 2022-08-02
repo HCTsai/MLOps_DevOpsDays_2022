@@ -57,6 +57,10 @@ if (global_config.mlflow_tracking_type == "1"):
     tracking_uri = global_config.tracking_uri
 # 模型的performance 預設值使用線下實驗結果
 model_metrics.set(model_registry.get_best_performance(global_config.exp_name_offline, tracking_uri))
+# demo 展示用，給定初始資料
+predict_counter.set(4328)
+feature_drift_counter.set(6)
+uncertain_predict_counter.set(2)
 
 def retrain_model_thread(exp_name):
     st = time.time()

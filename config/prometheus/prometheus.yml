@@ -78,11 +78,6 @@ scrape_configs:
       - files:
         - targets.json
   
-  - job_name: 'mlflow_customize_exporter'
-    scrape_interval: 5s
-    static_configs:
-      - targets: ['10.56.211.125:5002']
-      
   - job_name: 'gitea_exporter'
     scrape_interval: 5s
     static_configs:
