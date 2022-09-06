@@ -1,4 +1,4 @@
-# MLOps  
+# MLOps 教學範例 (for DevOpsDays Taipei 2022)
 
 使用了一個NLP，文本分類專案為例，建構基礎的MLOps管理流程。
 達成以下效果：
