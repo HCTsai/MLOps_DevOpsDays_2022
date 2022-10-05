@@ -14,6 +14,11 @@ UPLOAD_FOLDER = '../web/uploaded_files'
 DOWNLOAD_FOLDER = '../web/static/file'
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'docx', 'pptx'])
 
+if not os.path.exists(UPLOAD_FOLDER):
+  os.makedirs(UPLOAD_FOLDER)
+if not os.path.exists(DOWNLOAD_FOLDER):
+  os.makedirs(DOWNLOAD_FOLDER)
+  
 def process_upload(request):
     
     strategy_type = "SWOT"

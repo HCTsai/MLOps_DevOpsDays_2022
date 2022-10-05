@@ -25,7 +25,7 @@ def get_best_performance(exp_name, tracking_url):
     client = mlflow.tracking.MlflowClient()
     runs = client.search_runs(exp.experiment_id, "", run_view_type=ViewType.ACTIVE_ONLY, order_by=["metrics.val_f1_score DESC"], max_results=1)
     p = 0
-    if len(runs) > 0 :
+    if len(runs) > 0 and "val_f1_score" in runs[0].data.metrics :
         p = runs[0].data.metrics["val_f1_score"]
     return p
 def reload_model_by_uri(model_uri):

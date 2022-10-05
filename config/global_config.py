@@ -21,7 +21,7 @@ mlflow_tracking_type = 1 # 0: local tracking 1:remote tracking
 local_tracking_uri = "sqlite:///../data/mlflow.db"
 local_artifact_location = "file:/./mlruns"
 # mlflow with remote tracking
-cluster_ip = "10.55.23.101"
+cluster_ip = "192.168.51.103"
 MLFLOW_S3_ENDPOINT_URL="http://{}:9000".format(cluster_ip) # 設定S3指向的位置。預設為Amazon S3
 AWS_ACCESS_KEY_ID = "minioadmin"
 AWS_SECRET_ACCESS_KEY = "minioadmin"
